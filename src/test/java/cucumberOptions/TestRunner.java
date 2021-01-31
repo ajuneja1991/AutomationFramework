@@ -8,7 +8,9 @@ import io.cucumber.testng.CucumberOptions;
 @CucumberOptions(
 		
 		features = "src/test/java/features",
-		glue = "stepDefinitions")
+		glue = "stepDefinitions",
+		tags = "@demo",
+		plugin = {"pretty","html:target/cucumber"})
 public class TestRunner extends AbstractTestNGCucumberTests{
 	
 	
