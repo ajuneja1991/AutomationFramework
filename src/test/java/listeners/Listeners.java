@@ -1,11 +1,14 @@
 package listeners;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import utilities.Base;
 
-public class Listeners implements ITestListener{
+
+public class Listeners extends Base implements ITestListener{
 
 	@Override
 	public void onTestStart(ITestResult result) {
@@ -21,8 +24,21 @@ public class Listeners implements ITestListener{
 
 	@Override
 	public void onTestFailure(ITestResult result) {
-		// TODO Auto-generated method stub
-		ITestListener.super.onTestFailure(result);
+		//screenshot
+		String name = result.getMethod().getMethodName();
+		try {
+			WebDriver driver =(WebDriver)result.getTestClass().getRealClass().getDeclaredField("driver").get(result.getInstance());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			getScreenshot(name,driver);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
